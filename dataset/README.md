@@ -8,4 +8,4 @@ Consist of cleaned data from 50k samples without tonenization and lemmatization 
 
 ## preproc_data{n}.parquet
 Cleaned, tonenized, lemmatized ready dataset.
-Devided by pasrt for easier work with
+Devided by parts for easier work with
