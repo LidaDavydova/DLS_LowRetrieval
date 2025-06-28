@@ -25,10 +25,10 @@ async def handle_user_message(message: types.Message):
     query = message.text
 
     closest = ['a', 'b', 'very\nlong\nlaw\naaa\na'] #как-то находим самые близкие к запросу документы
-    extra_text = ['Да', "Нет", "Наверное"]
-    response = '\n\n'.join([f"**>{closest[i].replace('\n', '\n>')}||\nБолее простым языком:\n{extra_text[i]}" for i in range(len(closest))])
+    extra_text = ['Да', "Нет", "Наверное"] #как-то обрабатываем LLM
 
-    #как-то обрабатываем LLM
+
+    response = '\n\n'.join([f"**>{closest[i].replace('\n', '\n>')}||\nБолее простым языком:\n{extra_text[i]}" for i in range(len(closest))])
     await message.answer(response, parse_mode='MarkdownV2')
 
 
