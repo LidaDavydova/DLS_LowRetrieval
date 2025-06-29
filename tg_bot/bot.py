@@ -42,7 +42,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def generate_llm_response(query, top_results, template, model_name="gemma3:1b"):
-    # generate contex of top 5
+    # generate context of top 5
     context = ""
     sources = []
     
