@@ -31,6 +31,8 @@ These metrics suggest that we have a lot of room for improvement. One possible o
 3) Create ".env" file in the tg_bot folder with "TOKEN=<telegram_bot_token>". One of the ways to obtain it is to use @BotFather in Telegram
 4) Run bot.py and you will be able to interact with your Telegram bot
    
+[![Demo](https://www.darwinchambers.com/wp-content/uploads/demo-img.jpg)](https://github.com/LidaDavydova/DLS_LowRetrieval/blob/main/demo.mp4)
+
 ## Technical details
 Dataset used: https://github.com/irlcode/RusLawOD (currently cut to 50k samples)
 
