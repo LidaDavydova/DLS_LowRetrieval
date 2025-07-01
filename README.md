@@ -34,7 +34,12 @@ These metrics suggest that we have a lot of room for improvement. One possible o
 ## Technical details
 Dataset used: https://github.com/irlcode/RusLawOD (currently cut to 50k samples)
 
-We first make embeddings for every law in the dataset (after lemmalizing it). After this, for each user query we search 50 closest embeddings to the embedding of the query. Then we return 5 closest laws with at most 2 being from the same class (classes are predetermined in the dataset).
+We first make embeddings for every law in the dataset (after lemmalizing it).
+
+Then for each query the following happens.
+The system searches for the 50 nearest documents using FAISS (we use FAISS IndexFlatIP (exact search for inner product) with prior vector normalization. This makes the metric equivalent to cosine similarity, retrieving their indices and similarity scores. Then, non-existent entries and documents without classification are filtered out. The results are grouped by category (document class).
+
+If there are 5 or more categories, the most relevant document from each is taken, and the top 5 groups make it to the final selection. If there are fewer categories, the top 2 documents from each are selected, sorted by similarity, and the top 5 are kept. This approach ensures a balance between accuracy and answer diversity.
 
 * Frontend: Telegram bot on aiogram
 * Backend: Built in logic inside TG bot
