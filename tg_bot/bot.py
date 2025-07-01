@@ -138,23 +138,22 @@ def RAG(query):
 async def start_handler(message: types.Message):
     user_name = message.from_user.first_name
 
-    await message.answer(f"Здравствуйте, {user_name}! Я бот, который помогает искать российские законы, применимые к вашей ситуации. \
-                     Опишите ситуацию естественным языком, и я выдам вам список наиболее подходящих к ней законов.")
+    await message.answer(f"Здравствуйте, {user_name}! Я бот, который помогает искать российские законы, применимые к вашей ситуации.\nОпишите ситуацию естественным языком, и я выдам вам список наиболее подходящих к ней законов.")
     
 @dp.message()  # Handles all other messages after /start
 async def handle_user_message(message: types.Message):
     query = message.text
 
     top_res = RAG(query)
+    await message.answer('Пока ждете ответа, ознакомьтесь с документами, которые могут помочь в вашей ситуации:')
+    for i, res in enumerate(top_res, 1):
+        text = f"{i}. классификатор: {res['classifier']}\nТекст документа: {res['text'][:2000]}..."
+        await message.answer(text)
+
+    await message.answer('Идет поиск по предложенной информации и правовым документам... (около 2 мин)')
+    
     answer = generate_llm_response(query, top_res, template, model_name="gemma3:1b")
     
-
-    # response = '\n\n'.join([
-    #     "**>{}||\nБолее простым языком:\n{}".format(
-    #         closest[i].replace('\n', '\n>'), extra_text[i]
-    #     )
-    #     for i in range(len(closest))
-    # ])
     await message.answer(answer)
 
 
